@@ -119,7 +119,7 @@ class Graph:
                 for next_vertex in self.vertices[v]:
                     # make a copy of the current path
                     p_copy = p[:]
-                    # append the next_vertex to the path
+                    # append the next_vertex to the path and enqueue
                     p_copy.append(next_vertex)
                     q.enqueue(p_copy)
         # return False if the destination_vertex is not in  the graph
@@ -131,7 +131,30 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        # initialize a stack data structure and append starting_vertex
+        s = Stack()
+        s.push([starting_vertex])
+        # initialize an empty set of visited vertices
+        visited_vs = set()
+        # while the stack is not empty, keep traversing
+        while s.size():
+            # pop the next path and store it as a variable
+            p = s.pop()
+            # grab the last vertex from the path
+            v = p[len(p) - 1]
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                if v == destination_vertex:
+                    return p
+                # add the vortex to the visited set
+                visited_vs.add(v)
+                # for each connected vertex in the vertex's set, add a copy of the current path with it appended on the end
+                for next_vertex in self.vertices[v]:
+                    # make a copy of the current path
+                    p_copy = p[:]
+                    # append the next_vertex to the path and push to the stack
+                    p_copy.append(next_vertex)
+                    s.push(p_copy)
 
 
 
