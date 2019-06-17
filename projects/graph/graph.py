@@ -23,7 +23,24 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # initialise a queue datae structure and append starting_vertex
+        q = Queue()
+        q.enqueue(starting_vertex)
+        # initialise an empty set of visited nodes
+        visited_vs = set()
+        # while the queue is not empty, keep traversing
+        while q.size():
+            # dequeue the next vertex and store it in a variable
+            v = q.dequeue()
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                print(v)
+                # add the vertex to the visited set
+                visited_vs.add(v)
+                # for each connected node in the vertex's set, add to the queue
+                for next_vertex in self.vertices[v]:
+                    q.enqueue(next_vertex)
+
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
