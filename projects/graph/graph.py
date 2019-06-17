@@ -70,6 +70,11 @@ class Graph:
         beginning from starting_vertex.
         This should be done using recursion.
         """
+        # initialize a stack data structure and append starting_vertex
+        stack = Stack()
+        stack.push(starting_vertex)
+        # initialize an empty set of visited nodes
+        visited_vs = set()
         def recurse(stack, visited_vs):
             # pop the next vertex and store it as a variable
             v = stack.pop()
@@ -83,11 +88,6 @@ class Graph:
                     stack.push(next_vertex)
             if stack.size():
                 recurse(stack, visited_vs)
-        # initialize a stack data structure and append starting_vertex
-        stack = Stack()
-        stack.push(starting_vertex)
-        # initialize an empty set of visited nodes
-        visited_vs = set()
         # invoke the recursive function with the stack and visited nodes
         recurse(stack, visited_vs)
 
