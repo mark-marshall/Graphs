@@ -122,6 +122,8 @@ class Graph:
                     # append the next_vertex to the path
                     p_copy.append(next_vertex)
                     q.enqueue(p_copy)
+        # return False if the destination_vertex is not in  the graph
+        return False
     
     def dfs(self, starting_vertex, destination_vertex):
         """
