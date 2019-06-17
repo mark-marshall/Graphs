@@ -23,7 +23,7 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        # initialise a queue datae structure and append starting_vertex
+        # initialise a queue data structure and append starting_vertex
         q = Queue()
         q.enqueue(starting_vertex)
         # initialise an empty set of visited nodes
@@ -46,7 +46,24 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # initialize a stack data structure and append starting_vertex
+        s = Stack()
+        s.push(starting_vertex)
+        # initialize an empty set of visited nodes
+        visited_vs = set()
+        # while the stack is not empty, keep traversing
+        while s.size():
+            # pop the next vertex and store it as a variable
+            v = s.pop()
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                print(v)
+                # add the vortex to the visited set
+                visited_vs.add(v)
+                # for each connected node in the vertex's set, add to the stack
+                for next_vertex in self.vertices[v]:
+                    s.push(next_vertex)
+
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
