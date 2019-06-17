@@ -26,7 +26,7 @@ class Graph:
         # initialise a queue data structure and append starting_vertex
         q = Queue()
         q.enqueue(starting_vertex)
-        # initialise an empty set of visited nodes
+        # initialise an empty set of visited vertices
         visited_vs = set()
         # while the queue is not empty, keep traversing
         while q.size():
@@ -37,7 +37,7 @@ class Graph:
                 print(v)
                 # add the vertex to the visited set
                 visited_vs.add(v)
-                # for each connected node in the vertex's set, add to the queue
+                # for each connected vertex in the vertex's set, add to the queue
                 for next_vertex in self.vertices[v]:
                     q.enqueue(next_vertex)
 
@@ -49,7 +49,7 @@ class Graph:
         # initialize a stack data structure and append starting_vertex
         s = Stack()
         s.push(starting_vertex)
-        # initialize an empty set of visited nodes
+        # initialize an empty set of visited vertices
         visited_vs = set()
         # while the stack is not empty, keep traversing
         while s.size():
@@ -60,7 +60,7 @@ class Graph:
                 print(v)
                 # add the vortex to the visited set
                 visited_vs.add(v)
-                # for each connected node in the vertex's set, add to the stack
+                # for each connected vertex in the vertex's set, add to the stack
                 for next_vertex in self.vertices[v]:
                     s.push(next_vertex)
 
@@ -73,8 +73,9 @@ class Graph:
         # initialize a stack data structure and append starting_vertex
         stack = Stack()
         stack.push(starting_vertex)
-        # initialize an empty set of visited nodes
+        # initialize an empty set of visited vertices
         visited_vs = set()
+        # nested recurse function has access to changing stack and visited set
         def recurse(stack, visited_vs):
             # pop the next vertex and store it as a variable
             v = stack.pop()
@@ -97,8 +98,31 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
-
+        # initialise a queue data structure and append starting_vertex as the first item in a list
+        q = Queue()
+        q.enqueue([starting_vertex])
+        # initialise an empty set of visited vertices
+        visited_vs = set()
+        # while the queue is not empty, keep traversing
+        while q.size():
+            # dequeue the next path and store it in a variable
+            p = q.dequeue()
+            # grab the last vertex from the path
+            v = p[len(p)  - 1]
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                if v == destination_vertex:
+                    return p
+                # add the vertex to the visited set
+                visited_vs.add(v)
+                # for each connected vertex in the vertex's set, add a copy of the current path with it appended on the end
+                for next_vertex in self.vertices[v]:
+                    # make a copy of the current path
+                    p_copy = p[:]
+                    # append the next_vertex to the path
+                    p_copy.append(next_vertex)
+                    q.enqueue(p_copy)
+    
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
