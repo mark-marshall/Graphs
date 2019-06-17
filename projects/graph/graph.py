@@ -70,7 +70,27 @@ class Graph:
         beginning from starting_vertex.
         This should be done using recursion.
         """
-        pass  # TODO
+        def recurse(stack, visited_vs):
+            # pop the next vertex and store it as a variable
+            v = stack.pop()
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                print(v)
+                # add the vortex to the visited set
+                visited_vs.add(v)
+                # for each connected node in the vertex's set, add to the stack
+                for next_vertex in self.vertices[v]:
+                    stack.push(next_vertex)
+            if stack.size():
+                recurse(stack, visited_vs)
+        # initialize a stack data structure and append starting_vertex
+        stack = Stack()
+        stack.push(starting_vertex)
+        # initialize an empty set of visited nodes
+        visited_vs = set()
+        # invoke the recursive function with the stack and visited nodes
+        recurse(stack, visited_vs)
+
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
@@ -78,6 +98,7 @@ class Graph:
         breath-first order.
         """
         pass  # TODO
+
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
