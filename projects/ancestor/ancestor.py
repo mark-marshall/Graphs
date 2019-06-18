@@ -17,7 +17,7 @@ def getEarliestAncestor(family_member, family):
                 all_members.append(ind)
                 g.add_vertex(ind)
 
-    # take the pairs and add all parents to each child vertice
+    # take the pairs and add all parents to each child vertexß
     for pair in family:
         g.add_edge(pair[1], pair[0])
     
@@ -34,7 +34,7 @@ def ancestor_search(family_member, family_graph):
     visited_vs = set()
     # initialize a compete paths list
     complete_paths = []
-    
+
     # while the stack is not empty, keep traversing
     while s.size():
         # pop the next path and store it as a variable
@@ -58,7 +58,7 @@ def ancestor_search(family_member, family_graph):
     # find the longest path
     longest_path = complete_paths[0]
     for path in complete_paths
-        # replace the cur longest_path if given paath is longer
+        # replace the cur longest_path if given path is longer
         if len(path) > len(longest_path):
             longest_path = path
         # also replace the cur longest_path if given path is same lenght but final ID is smaller
