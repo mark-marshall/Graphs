@@ -11,45 +11,156 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex] = set()
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        if v1 in self.vertices and v2 in self.vertices:
+            self.vertices[v1].add(v2)
+        elif v1 in self.vertices:
+            raise Exception(f"{v2} does not exist")
+        elif v2 in self.vertices:
+            raise Exception(f"{v1} does not exist")
+        else:
+            raise Exception(f"{v1} and {v2} do not exist")
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # initialise a queue data structure and append starting_vertex
+        q = Queue()
+        q.enqueue(starting_vertex)
+        # initialise an empty set of visited vertices
+        visited_vs = set()
+        # while the queue is not empty, keep traversing
+        while q.size():
+            # dequeue the next vertex and store it in a variable
+            v = q.dequeue()
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                print(v)
+                # add the vertex to the visited set
+                visited_vs.add(v)
+                # for each connected vertex in the vertex's set, add to the queue
+                for next_vertex in self.vertices[v]:
+                    q.enqueue(next_vertex)
+
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # initialize a stack data structure and append starting_vertex
+        s = Stack()
+        s.push(starting_vertex)
+        # initialize an empty set of visited vertices
+        visited_vs = set()
+        # while the stack is not empty, keep traversing
+        while s.size():
+            # pop the next vertex and store it as a variable
+            v = s.pop()
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                print(v)
+                # add the vortex to the visited set
+                visited_vs.add(v)
+                # for each connected vertex in the vertex's set, add to the stack
+                for next_vertex in self.vertices[v]:
+                    s.push(next_vertex)
+
     def dft_recursive(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         This should be done using recursion.
         """
-        pass  # TODO
+        # initialize a stack data structure and append starting_vertex
+        stack = Stack()
+        stack.push(starting_vertex)
+        # initialize an empty set of visited vertices
+        visited_vs = set()
+        # nested recurse function has access to changing stack and visited set
+        def recurse(stack, visited_vs):
+            # pop the next vertex and store it as a variable
+            v = stack.pop()
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                print(v)
+                # add the vortex to the visited set
+                visited_vs.add(v)
+                # for each connected node in the vertex's set, add to the stack
+                for next_vertex in self.vertices[v]:
+                    stack.push(next_vertex)
+            if stack.size():
+                recurse(stack, visited_vs)
+        # invoke the recursive function with the stack and visited nodes
+        recurse(stack, visited_vs)
+
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        # initialise a queue data structure and append starting_vertex as the first item in a list
+        q = Queue()
+        q.enqueue([starting_vertex])
+        # initialise an empty set of visited vertices
+        visited_vs = set()
+        # while the queue is not empty, keep traversing
+        while q.size():
+            # dequeue the next path and store it in a variable
+            p = q.dequeue()
+            # grab the last vertex from the path
+            v = p[len(p)  - 1]
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                if v == destination_vertex:
+                    return p
+                # add the vertex to the visited set
+                visited_vs.add(v)
+                # for each connected vertex in the vertex's set, add a copy of the current path with it appended on the end
+                for next_vertex in self.vertices[v]:
+                    # make a copy of the current path
+                    p_copy = p[:]
+                    # append the next_vertex to the path and enqueue
+                    p_copy.append(next_vertex)
+                    q.enqueue(p_copy)
+        # return False if the destination_vertex is not in  the graph
+        return False
+    
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        # initialize a stack data structure and append starting_vertex
+        s = Stack()
+        s.push([starting_vertex])
+        # initialize an empty set of visited vertices
+        visited_vs = set()
+        # while the stack is not empty, keep traversing
+        while s.size():
+            # pop the next path and store it as a variable
+            p = s.pop()
+            # grab the last vertex from the path
+            v = p[len(p) - 1]
+            # if the vertex has not already been visited
+            if v not in visited_vs:
+                if v == destination_vertex:
+                    return p
+                # add the vortex to the visited set
+                visited_vs.add(v)
+                # for each connected vertex in the vertex's set, add a copy of the current path with it appended on the end
+                for next_vertex in self.vertices[v]:
+                    # make a copy of the current path
+                    p_copy = p[:]
+                    # append the next_vertex to the path and push to the stack
+                    p_copy.append(next_vertex)
+                    s.push(p_copy)
 
 
 
