@@ -75,17 +75,16 @@ class SocialGraph:
         """
         # initialise an empty dictionary of visited vertices
         visited = {}
-        # initialise a queue data structure and append starting_vertex as the first item in a list
+        # initialise a queue data structure and append userID as the first item in a list
         q = Queue()
         q.enqueue([userID])
-        # initialise an empty set of visited vertices
         # while the queue is not empty, keep traversing
         while q.size():
             # dequeue the next path and store it in a variable
             p = q.dequeue()
             # grab the last vertex from the path
             v = p[len(p)  - 1]
-            # if the vertex has not already been visited
+            # if the vertex has not already been visited, make a new dictionary key and assign it the current path
             if v not in visited:
                 visited[v] = p
                 # for each connected vertex in the vertex's set, add a copy of the current path with it appended on the end
@@ -95,7 +94,7 @@ class SocialGraph:
                     # append the next_vertex to the path and enqueue
                     p_copy.append(next_vertex)
                     q.enqueue(p_copy)
-        # return False if the destination_vertex is not in  the graph
+        # return friend pathways
         return visited
              
 
