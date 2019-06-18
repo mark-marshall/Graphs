@@ -13,6 +13,9 @@ def getEarliestAncestor(family_member, family):
     for pair in family:
         if pair[0] not in all_members:
             all_members.append(pair[0])
-    print(all_members)
+            g.add_vertex(pair[0])
+    # take the pairs and add all parents to each child vertice
+    for pair in family:
+        g.add_edge(pair[1], pair[0])
 
 getEarliestAncestor(family_member, family)
