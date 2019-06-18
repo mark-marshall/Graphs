@@ -6,7 +6,7 @@ from util import Stack
 family_member = 6
 family = [[1,3], [2,3], [3,6], [5,6], [5,7], [4,5], [4,8], [8,9], [11,8], [10,1]]
 
-def getEarliestAncestor(family_member, family):
+def earliestAncestor(family_member, family):
     g = Graph()
 
     # add all femily member vertices to the graph
@@ -57,7 +57,7 @@ def ancestor_search(family_member, family_graph):
 
     # find the longest path
     longest_path = complete_paths[0]
-    for path in complete_paths
+    for path in complete_paths:
         # replace the cur longest_path if given path is longer
         if len(path) > len(longest_path):
             longest_path = path
@@ -65,6 +65,10 @@ def ancestor_search(family_member, family_graph):
         if (len(path) == len(longest_path)) and (path[-1] < longest_path[-1]):
             longest_path = path
     # return the final ancestor in tthe longest path
-    return longest_path[-1]
+    ans = longest_path[-1]
+    if ans == family_member:
+        return -1
+    else:
+        return ans
 
-print(getEarliestAncestor(family_member, family))
+print(earliestAncestor(family_member, family))
