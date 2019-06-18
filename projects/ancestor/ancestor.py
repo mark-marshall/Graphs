@@ -11,11 +11,13 @@ def getEarliestAncestor(family_member, family):
     # add all femily member vertices to the graph
     all_members = []
     for pair in family:
-        if pair[0] not in all_members:
-            all_members.append(pair[0])
-            g.add_vertex(pair[0])
+        for ind in pair:
+            if ind not in all_members:
+                all_members.append(ind)
+                g.add_vertex(ind)
     # take the pairs and add all parents to each child vertice
     for pair in family:
         g.add_edge(pair[1], pair[0])
+    print(g.vertices)
 
 getEarliestAncestor(family_member, family)
