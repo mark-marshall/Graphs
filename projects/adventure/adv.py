@@ -1,6 +1,8 @@
 from room import Room
 from player import Player
 from world import World
+from graph import Graph
+from util import Queue
 
 import random
 
@@ -17,14 +19,28 @@ roomGraph={494: [(1, 8), {'e': 457}], 492: [(1, 20), {'e': 400}], 493: [(2, 5), 
 world.loadGraph(roomGraph)
 
 # UNCOMMENT TO VIEW MAP
-world.printRooms()
+# world.printRooms()
 
 player = Player("Name", world.startingRoom)
 
-# Fill this out
+# list of directionss for moving around the map e.g. 'n','s'
 traversalPath = []
 
+# inverse direction references
+inverse_exits = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
+# initialize the graph with the starting node
+player.currentRoom = world.startingRoom
+g = Graph()
+g.add_vertex(0)
+g.add_edge(0, ({'n': '?', 's': '?', 'w': '?', 'e': '?'}))
+list_exits = {}
+exits = player.currentRoom.getExits()
+for exit in exits:
+    list_exits[exit] = '?'
+g.vertices[0] = list_exits
+
+print(g.vertices)
 
 # TRAVERSAL TEST
 visited_rooms = set()
