@@ -74,7 +74,6 @@ while True:
         # if bfs returns False, traversal is complete
         else:
             break
-
     # move to the next randomly chosen room
     player.travel(random_dir)
     # add move to the traversal path
@@ -109,7 +108,6 @@ if len(visited_rooms) == len(roomGraph):
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(roomGraph) - len(visited_rooms)} unvisited rooms")
-
 
 
 #######
