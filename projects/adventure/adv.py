@@ -42,7 +42,7 @@ for exit in exits:
 g.add_edge(0, list_exits)
 
 # depth-first traversal loop
-while True:
+while len(roomGraph):
     # hold the current room in a from_room 
     from_room = player.currentRoom.id
     # get a list of the available exits from the  graph
