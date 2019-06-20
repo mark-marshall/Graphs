@@ -41,7 +41,7 @@ for exit in exits:
 # add exits as edges with ?
 g.add_edge(0, list_exits)
 
-# depth-first traversal loop
+# random traversal loop
 while len(roomGraph):
     # hold the current room in a from_room 
     from_room = player.currentRoom.id
