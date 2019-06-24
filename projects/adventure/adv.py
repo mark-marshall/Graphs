@@ -1,8 +1,10 @@
 from room import Room
 from player import Player
 from world import World
+from graph import Graph
+from util import Queue
 
-import random
+from random import randint
 
 # Load world
 world = World()
@@ -17,14 +19,80 @@ roomGraph={494: [(1, 8), {'e': 457}], 492: [(1, 20), {'e': 400}], 493: [(2, 5), 
 world.loadGraph(roomGraph)
 
 # UNCOMMENT TO VIEW MAP
-world.printRooms()
+# world.printRooms()
 
 player = Player("Name", world.startingRoom)
 
-# Fill this out
+# list of directionss for moving around the map e.g. 'n','s'
 traversalPath = []
 
+# inverse direction references
+inverse_exits = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
+# initialize the graph with the starting node
+player.currentRoom = world.startingRoom
+g = Graph()
+g.add_vertex(0)
+list_exits = {}
+# get all of the exits on the starting room
+exits = player.currentRoom.getExits()
+for exit in exits:
+    list_exits[exit] = '?'
+# add exits as edges with ?
+g.add_edge(0, list_exits)
+
+# random traversal loop
+while len(roomGraph):
+    # hold the current room in a from_room 
+    from_room = player.currentRoom.id
+    # get a list of the available exits from the  graph
+    exits = g.vertices[from_room]
+    # get all unexplored directions for the room
+    unexp_dirs = []
+    for dirs in exits:
+        if exits[dirs] == '?':
+            unexp_dirs.append(dirs)
+    #initialize random_dir
+    random_dir = ''
+    # if there are unexplored directions, calculate a random dir for traversal
+    if len(unexp_dirs):
+        random_dir = unexp_dirs[randint(0,len(unexp_dirs) - 1)]
+    # else do a bfs to find the closest unexplored room
+    else:
+        # do a bfs to find the nearest room with an unexplored exit
+        path_to_next_unexp = g.bfs(from_room)
+        if path_to_next_unexp:
+            for room in path_to_next_unexp:
+                cur = player.currentRoom.id
+                poss_exit = player.currentRoom.getExits()
+                for exit in poss_exit:
+                    # find the direction required to go to the next room returned in the bfs list
+                    if room == g.vertices[cur][exit]:
+                        traversalPath.append(exit)
+                        player.travel(exit)
+            continue
+        # if bfs returns False, traversal is complete
+        else:
+            break
+    # move to the next randomly chosen room
+    player.travel(random_dir)
+    # add move to the traversal path
+    traversalPath.append(random_dir)
+    # set the new room to a variable
+    to_room = player.currentRoom.id
+    # fill in the from_room verticess with new known room
+    g.vertices[from_room][random_dir] = to_room
+    # create a new vertex if one does not yet exist for the room
+    if to_room not in g.vertices:
+        g.add_vertex(to_room)
+        # add edges with available exits
+        list_exits = {}
+        exits = player.currentRoom.getExits()
+        for exit in exits:
+            list_exits[exit] = '?'
+        g.add_edge(to_room, list_exits)
+    # add edge for the room travelled from
+    g.vertices[to_room][inverse_exits[random_dir]] = from_room
 
 # TRAVERSAL TEST
 visited_rooms = set()
@@ -40,7 +108,6 @@ if len(visited_rooms) == len(roomGraph):
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(roomGraph) - len(visited_rooms)} unvisited rooms")
-
 
 
 #######
