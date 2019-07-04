@@ -1,24 +1,17 @@
 # Graphs
 
-## Objectives
-
-* [Graph Intro](objectives/graph-intro)
-* [Graph Representations](objectives/graph-representations)
-* [Breadth First Search](objectives/breadth-first-search)
-* [Depth First Search](objectives/depth-first-search)
-* [Randomness](objectives/randomness)
-* [Connected Components](objectives/connected-components)
-
 ## Projects
+* Graph trarversal and search - BFS, DFS, BFT, and DFT
+* Earliest ancestor - find the earliest ancestor in a family tree
+* Social network - map connections and mutual friends
+* Islands - identify islands in a matrix of 1s and 0s
+* Adventure game - find a path that traverses every room on a map
 
-### Day 1
-* [Graph Traversal and Search](projects/graph)
+## Motivation
+This set of graphs projects was completed with the aim of better understanding how to approach, and implement solutions to, graph-based problems.
 
-### Day 2
-* [Earliest Ancestor](projects/ancestor)
+## Technologies
+Python
 
-### Day 3
-* [Random Social Network](projects/social)
-
-### Day 4
-* [Adventure Map Traversal](projects/adventure)
+## Installer
+cd into each of the projects and run python on the file that contains the same name as the project folder e.g. islands.py forthe islands project.
