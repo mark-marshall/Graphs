@@ -1,13 +1,12 @@
 # Graphs
 
 ## Projects
+A more detailed description of each project is available as a README in their respective folders.
 * Graph trarversal and search - BFS, DFS, BFT, and DFT
 * Earliest ancestor - find the earliest ancestor in a family tree
 * Social network - map connections and mutual friends
 * Islands - identify islands in a matrix of 1s and 0s
 * Adventure game - find a path that traverses every room on a map
-
-A more detailed description of each project is available as a README in their respective folders.
 
 ## Motivation
 This set of graphs projects was completed with the aim of better understanding how to approach, and implement solutions to, graph-based problems.
